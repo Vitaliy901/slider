@@ -45,10 +45,11 @@ html    {
 /* ===================img=================== */
 .slider > img {
 	height: 300px;
-	max-width: 400px;
+	max-width: 450px;
 	border-radius: 10px;
 	border: 10px solid rgb(255, 255, 255);
 	box-shadow: 0 0 35px 15px rgb(197, 197, 197);
+	transition: 1s linear;
 }
 .slider > img:first-child {
 	transform: scale(0.8);
