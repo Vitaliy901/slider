@@ -35,6 +35,7 @@ function createImg(params) {
 function move(params) {
 	let imagesExist = slider.querySelectorAll('img')
 	let offset2 = 0;
+
 	if (this.matches('.right')) {
 		for (let img of imagesExist) {
 			img.style.left = `${offset2 * 480 - 480}px`
@@ -44,10 +45,11 @@ function move(params) {
 	} else {
 
 	}
-
-	setTimeout(function () {
+	this.removeEventListener('click', move)
+	setTimeout(function (params) {
 		imagesExist[0].remove()
-	}, 800)
+		params.addEventListener('click', move)
+	}, 1000, this)
 }
 
 previous.addEventListener('click', move)
