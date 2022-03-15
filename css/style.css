@@ -10,17 +10,16 @@ html    {
 	gap: 10px;
 }
 /* ===================slider================ */
-.slider {
-	position: relative;
+.slider-window{
 	align-self: stretch;
 	display: flex;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
+	position: relative;
 	flex: 1 1 1200px;
 	overflow: hidden;
-	gap: 30px;
 }
-.slider::before {
+.slider-window::before {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -31,7 +30,7 @@ html    {
 	backdrop-filter: blur(3px);
 	z-index: 1;
 }
-.slider::after{
+.slider-window::after{
 	content: "";
 	position: absolute;
 	top: 0;
@@ -42,21 +41,25 @@ html    {
 	backdrop-filter: blur(3px);
 	z-index: 1;
 }
+.slider-position {
+	height: 300px;
+	flex: 0 1 900px;
+	position: relative;
+}
 /* ===================img=================== */
-.slider > img {
+.slider-position > img {
+	position: absolute;
+	top: 0;
+	left: 0;
 	height: 300px;
 	max-width: 450px;
+	box-sizing: border-box;
 	border-radius: 10px;
 	border: 10px solid rgb(255, 255, 255);
 	box-shadow: 0 0 35px 15px rgb(197, 197, 197);
 	transition: 1s linear;
 }
-.slider > img:first-child {
-	transform: scale(0.8);
-}
-.slider > img:last-child {
-	transform: scale(0.8);
-}
+
 /* =================buttons===================*/
 .left, .right {
 	flex: 1 1 100px;
