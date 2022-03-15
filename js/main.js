@@ -44,10 +44,12 @@ function move(params) {
 	} else {
 
 	}
-
-	setTimeout(function () {
+	console.log('!')
+	this.removeEventListener('click', move)
+	setTimeout(function (params) {
 		imagesExist[0].remove()
-	}, 800)
+		params.addEventListener('click', move)
+	}, 900, this)
 }
 
 previous.addEventListener('click', move)
