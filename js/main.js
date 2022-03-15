@@ -1,46 +1,53 @@
 let previous = document.querySelector('.left')
 let next = document.querySelector('.right')
-let slider = document.querySelector('.slider')
+let slider = document.querySelector('.slider-position')
 let images = slider.querySelectorAll('img')
 
 let src = []
 let offset = 0;
 let step = 0;
-// clone src and remove all img===========
+// copy src and remove all img===========
 for (let i = 0; i < images.length; i++) {
 	src[i] = images[i].src
 	images[i].remove()
 }
 //  fill slider ======================
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 5; i++) {
 	createImg()
 }
 //  create img and load into end ==========
 function createImg(params) {
 	let img = document.createElement('img')
 	img.src = src[step]
+	img.style.left = offset * 480 + "px"
 	slider.appendChild(img)
+	
 	if (step < src.length - 1) {
 		step++
 	} else {
 		step = 0;
 	}
+	if (offset < 4) {
+		offset++
+	}
 }
 
 function move(params) {
-	let images2 = slider.querySelectorAll('img')
+	let imagesExist = slider.querySelectorAll('img')
+	let offset2 = 0;
 	if (this.matches('.right')) {
-		for (let img of images2) {
-			img.style.transform = `translate(${offset * 395 - (395 * 2)}px, 0)`
+		for (let img of imagesExist) {
+			img.style.left = `${offset2 * 480 - 480}px`
+			offset2++
 		}
 		createImg()
 	} else {
 
 	}
-	offset++
+
 	setTimeout(function () {
-		images2[0].remove()
-	},2000)
+		imagesExist[0].remove()
+	}, 800)
 }
 
 previous.addEventListener('click', move)
