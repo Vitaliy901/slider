@@ -44,6 +44,7 @@ function move(params) {
 	} else {
 
 	}
+	console.log('!')
 	this.removeEventListener('click', move)
 	setTimeout(function (params) {
 		imagesExist[0].remove()
