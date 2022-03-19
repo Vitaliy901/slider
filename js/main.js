@@ -11,7 +11,7 @@ for (let img of images) {
 	img.remove();
 }
 //  set images into slider==============
-for (let i = 0; i < images.length; i++) {
+for (let i = 0; i < 5; i++) {
 	let img = images[i];
 	img.style.left = offset * 480 - 480 + 'px';
 	slider.appendChild(img);
@@ -19,8 +19,7 @@ for (let i = 0; i < images.length; i++) {
 	if (step1 < 3) {
 		step1++
 	} else {
-		step1 = 0
-		step2 = images.length - 1;
+		step2 = images.length;
 		offset = 0;
 		addImgR()
 		addImgL()
@@ -30,7 +29,14 @@ for (let i = 0; i < images.length; i++) {
 // support function add img to right==================
 function addImgR(params) {
 	let img
-	console.log(step2)
+
+	if (step1 <  images.length - 1) {
+		step1++
+	} else {
+		step1 = 0
+	}
+	
+	console.log(step1)
 	if (step1 < images.length) {
 		img = images[step1].cloneNode(false);
 	} else {
@@ -40,18 +46,18 @@ function addImgR(params) {
 
 	img.style.left = 1440 + 'px';
 	slider.appendChild(img);
-	step1++
+
 }
 
 function addImgL(params) {
 	let img;
-
+	console.log(step1)
 	if (step2 > 0) {
 		step2--
 	} else {
 		step2 = images.length -1
 	}
-	console.log(step2)
+
 	if (step2 > 0) {
 		img = images[step2].cloneNode(false);
 	} else {
@@ -65,6 +71,8 @@ function addImgL(params) {
 }
 // move intagrated images ================
 function moveR(e) {
+	previous.removeEventListener('click', moveL);
+	next.removeEventListener('click', moveR);
 
 	if (step2 < images.length - 1) {
 		step2++
@@ -73,7 +81,7 @@ function moveR(e) {
 
 	}
 
-	next.removeEventListener('click', moveR);
+
 	let integrImages = slider.querySelectorAll('img');
 
 	for (let img of integrImages) {
@@ -95,19 +103,23 @@ function moveR(e) {
 
 	setTimeout(function () {
 		next.addEventListener('click', moveR);
-	}, 1000)
+		previous.addEventListener('click', moveL);
+	}, 1200)
 }
 
 
 
 function moveL(e) {
+	previous.removeEventListener('click', moveL);
+	next.removeEventListener('click', moveR);
+
 	if (step1 > 0) {
 		step1--
 	}else {
 		step1 = images.length
 		step1--
 	}
-	previous.removeEventListener('click', moveL);
+
 	let integrImages = slider.querySelectorAll('img');
 	for (let img of integrImages) {
 		img.style.left = offset2 * 480 - 480 + 'px';
@@ -128,78 +140,9 @@ function moveL(e) {
 	}
 
 	setTimeout(function () {
+		next.addEventListener('click', moveR);
 		previous.addEventListener('click', moveL);
-	}, 1000)
+	}, 1200)
 }
 next.addEventListener('click', moveR);
 previous.addEventListener('click', moveL);
-/* let src = []
-let offsetR = 0;
-let stepR = 0;
-// copy src and remove all img===========
-for (let i = 0; i < images.length; i++) {
-	src[i] = images[i].src
-	images[i].remove()
-}
-//  fill slider ======================
-for (let i = 0; i < 5; i++) {
-	createImg()
-}
-
-//  create img and load into end ==========
-function createImg(params) {
-	let img = document.createElement('img')
-	img.src = src[stepR]
-	img.style.left = offsetR * 480 + "px"
-	slider.appendChild(img)
-	
-	if (stepR < src.length - 1) {
-		stepR++
-	} else {
-		stepR = 0;
-	}
-	if (offsetR < 4) {
-		offsetR++
-	}
-}
-
-let flag = false;
-window.addEventListener('load', function (params) {
-	let call = new Event('click')
-	next.dispatchEvent(call);
-})
-function move(params) {
-	let imagesExist = slider.querySelectorAll('img')
-	let offset2 = 0;
-	if (this.matches('.right')) {
-		for (let img of imagesExist) {
-			img.style.left = `${offset2 * 480 - 480}px`
-			offset2++
-		}
-		if (flag) {
-			createImg()
-			this.removeEventListener('click', move)
-			setTimeout(function (params) {
-				imagesExist[0].remove()
-				params.addEventListener('click', move)
-			}, 900, this)
-		}
-		flag = true;
-	} else {
-		for (let img of imagesExist) {
-			img.style.left = `${offset2 * 480 + 480}px`
-			offset2++
-		}
-		left()
-		this.removeEventListener('click', move)
-		setTimeout(function (params) {
-			imagesExist[4].remove()
-			params.addEventListener('click', move)
-		}, 900, this)
-	}
-
-	
-}
- */
-/* previous.addEventListener('click', move)
-next.addEventListener('click', move) */
