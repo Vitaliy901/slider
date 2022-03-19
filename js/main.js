@@ -20,8 +20,8 @@ for (let i = 0; i < images.length; i++) {
 		step1++
 	} else {
 		step1 = 0
-		offset = 0;
 		step2 = images.length - 1;
+		offset = 0;
 		addImgR()
 		addImgL()
 		break
@@ -30,8 +30,8 @@ for (let i = 0; i < images.length; i++) {
 // support function add img to right==================
 function addImgR(params) {
 	let img
-
-	if (step1< images.length) {
+	console.log(step2)
+	if (step1 < images.length) {
 		img = images[step1].cloneNode(false);
 	} else {
 		step1 = 0;
@@ -45,7 +45,13 @@ function addImgR(params) {
 
 function addImgL(params) {
 	let img;
-	
+
+	if (step2 > 0) {
+		step2--
+	} else {
+		step2 = images.length -1
+	}
+	console.log(step2)
 	if (step2 > 0) {
 		img = images[step2].cloneNode(false);
 	} else {
@@ -55,10 +61,18 @@ function addImgL(params) {
 
 	img.style.left = -960 + 'px';
 	slider.insertBefore(img, slider.firstElementChild);
-	step2--
+
 }
 // move intagrated images ================
-function moveR(params) {
+function moveR(e) {
+
+	if (step2 < images.length - 1) {
+		step2++
+	}else {
+		step2 = 0
+
+	}
+
 	next.removeEventListener('click', moveR);
 	let integrImages = slider.querySelectorAll('img');
 
@@ -70,6 +84,7 @@ function moveR(params) {
 			offset = 0;
 		}
 	}
+
 	setTimeout(function (params) {
 		addImgR()
 	},1000)
@@ -77,6 +92,7 @@ function moveR(params) {
 	if (size == -1440) {
 		integrImages[0].remove();
 	}
+
 	setTimeout(function () {
 		next.addEventListener('click', moveR);
 	}, 1000)
@@ -84,10 +100,15 @@ function moveR(params) {
 
 
 
-function moveL(params) {
+function moveL(e) {
+	if (step1 > 0) {
+		step1--
+	}else {
+		step1 = images.length
+		step1--
+	}
 	previous.removeEventListener('click', moveL);
 	let integrImages = slider.querySelectorAll('img');
-	console.log(offset2)
 	for (let img of integrImages) {
 		img.style.left = offset2 * 480 - 480 + 'px';
 		if (offset2 < 5) {
@@ -105,6 +126,7 @@ function moveL(params) {
 	if (size == 1920) {
 		integrImages[integrImages.length - 1].remove();
 	}
+
 	setTimeout(function () {
 		previous.addEventListener('click', moveL);
 	}, 1000)
