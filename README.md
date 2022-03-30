@@ -1,2 +1,2 @@
 ## Infinity slider.
-Contains animals.
+https://vitaliy901.github.io/slider/
